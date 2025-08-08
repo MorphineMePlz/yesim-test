@@ -1,0 +1,29 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: 32 auto 16 auto;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  font-size: 16px;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #000000;
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.46);
+  }
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
