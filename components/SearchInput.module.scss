@@ -1,8 +1,12 @@
 .wrapper {
   position: relative;
   width: 100%;
-  max-width: 720px;
+  max-width: 359px;
   margin: 32 auto 16 auto;
+
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
 }
 
 .input {
