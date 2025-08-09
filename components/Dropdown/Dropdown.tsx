@@ -1,9 +1,14 @@
+import { FC } from "react";
+
 import Link from "next/link";
-import styles from "./Dropdown.module.scss";
-import { Country } from "@/types/country";
+
 import { useTranslation } from "next-i18next";
 
-export default function Dropdown({ results }: { results: Country[] }) {
+import styles from "./Dropdown.module.scss";
+
+import { Country } from "@/types/country";
+
+const Dropdown: FC<{ results: Country[] }> = ({ results }) => {
   const { t } = useTranslation();
   if (!results.length) {
     return (
@@ -33,4 +38,6 @@ export default function Dropdown({ results }: { results: Country[] }) {
       ))}
     </div>
   );
-}
+};
+
+export default Dropdown;

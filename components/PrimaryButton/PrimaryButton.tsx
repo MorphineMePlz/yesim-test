@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 import styles from "./PrimaryButton.module.scss";
 
 type Props = {
@@ -6,14 +8,12 @@ type Props = {
   type?: "button" | "submit" | "reset";
 };
 
-export default function PrimaryButton({
-  children,
-  onClick,
-  type = "button",
-}: Props) {
+const PrimaryButton: FC<Props> = ({ children, onClick, type = "button" }) => {
   return (
     <button className={styles.button} onClick={onClick} type={type}>
       {children}
     </button>
   );
-}
+};
+
+export default PrimaryButton;

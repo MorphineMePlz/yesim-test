@@ -1,5 +1,8 @@
-import styles from "./SearchInput.module.scss";
+import { FC } from "react";
+
 import Image from "next/image";
+
+import styles from "./SearchInput.module.scss";
 
 type Props = {
   value: string;
@@ -8,12 +11,7 @@ type Props = {
   onFocus?: () => void;
 };
 
-export default function SearchInput({
-  value,
-  onChange,
-  placeholder,
-  onFocus,
-}: Props) {
+const SearchInput: FC<Props> = ({ value, onChange, placeholder, onFocus }) => {
   return (
     <div className={styles.wrapper}>
       <Image
@@ -33,4 +31,6 @@ export default function SearchInput({
       />
     </div>
   );
-}
+};
+
+export default SearchInput;

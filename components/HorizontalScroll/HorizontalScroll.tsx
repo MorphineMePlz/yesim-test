@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { FC, useRef } from "react";
+
 import styles from "./HorizontalScroll.module.scss";
 
-export default function HorizontalScroll() {
+const HorizontalScroll: FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -54,4 +55,6 @@ export default function HorizontalScroll() {
       </div>
     </section>
   );
-}
+};
+
+export default HorizontalScroll;

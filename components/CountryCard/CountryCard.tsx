@@ -1,11 +1,13 @@
-import styles from "./CountryCard.module.scss";
+import { FC } from "react";
+
 import Link from "next/link";
 import Image from "next/image";
+
+import styles from "./CountryCard.module.scss";
+
 import { Country } from "@/types/country";
 
-export default function CountryCard({ country }: { country: Country }) {
-  const { country: name, iso, url, classic_info } = country;
-
+const CountryCard: FC<Country> = ({ country, iso, url, classic_info }) => {
   const price = classic_info?.price_per_gb
     ? parseInt(classic_info.price_per_gb) / 20
     : null;
@@ -15,7 +17,7 @@ export default function CountryCard({ country }: { country: Country }) {
       <div className={styles.flagWrapper}>
         <Image
           src={`/flags/${iso.toLowerCase()}.svg`}
-          alt={`${name} flag`}
+          alt={`${country} flag`}
           width={40}
           height={40}
           className={styles.flag}
@@ -23,7 +25,7 @@ export default function CountryCard({ country }: { country: Country }) {
       </div>
 
       <div className={styles.info}>
-        <span className={styles.name}>{name}</span>
+        <span className={styles.name}>{country}</span>
         {price && <span className={styles.price}>от €{price}/GB</span>}
       </div>
 
@@ -39,4 +41,6 @@ export default function CountryCard({ country }: { country: Country }) {
       </div>
     </Link>
   );
-}
+};
+
+export default CountryCard;
