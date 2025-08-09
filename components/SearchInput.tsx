@@ -5,9 +5,15 @@ type Props = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  onFocus?: () => void;
 };
 
-export default function SearchInput({ value, onChange, placeholder }: Props) {
+export default function SearchInput({
+  value,
+  onChange,
+  placeholder,
+  onFocus,
+}: Props) {
   return (
     <div className={styles.wrapper}>
       <Image
@@ -21,6 +27,7 @@ export default function SearchInput({ value, onChange, placeholder }: Props) {
         type="text"
         value={value}
         onChange={onChange}
+        onFocus={onFocus}
         className={styles.input}
         placeholder={placeholder || "Поиск..."}
       />

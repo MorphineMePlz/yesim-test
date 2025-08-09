@@ -1,8 +1,9 @@
 import styles from "./CountryCard.module.scss";
 import Link from "next/link";
 import Image from "next/image";
+import { Country } from "@/types/country";
 
-export default function CountryCard({ country }: { country: any }) {
+export default function CountryCard({ country }: { country: Country }) {
   const { country: name, iso, url, classic_info } = country;
 
   const price = classic_info?.price_per_gb
