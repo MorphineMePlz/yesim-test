@@ -1,59 +1,103 @@
-// pages/index.tsx
+import { useState, useEffect, useRef, FC } from "react";
+
 import { GetStaticProps } from "next";
-import { fetchCountries } from "../utils/api";
-import { useState } from "react";
-import styles from "../styles/Home.module.scss";
+
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import CountryCard from "@/components/CountryCard";
-import SearchInput from "@/components/SearchInput";
-import PrimaryButton from "@/components/PrimaryButton";
 
-export default function Home({ countries }: { countries: any[] }) {
+import styles from "../styles/Home.module.scss";
+
+import { Country } from "@/types/country";
+import { fetchCountries } from "../utils/api";
+import {
+  CountryCard,
+  Dropdown,
+  PrimaryButton,
+  SearchInput,
+} from "@/components";
+
+const Home: FC<{ countries: Country[] }> = ({ countries }) => {
   const { t } = useTranslation();
-  const [search, setSearch] = useState("");
-  const [showAll, setShowAll] = useState(false);
 
-  const toggleShowAll = () => {
-    setShowAll((prev) => !prev);
-  };
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState<Country[]>([]);
+  const [showAll, setShowAll] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const cleanedCountries = countries.filter(
-    (c) => c && typeof c.iso === "string"
+    ({ iso }) => typeof iso === "string"
   );
 
-  const filtered = cleanedCountries.filter((c) =>
-    c.country.toLowerCase().startsWith(search.toLowerCase())
-  );
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearch(value);
 
-  const visible = showAll ? filtered : filtered.slice(0, 12);
+    if (value.trim() === "") {
+      setSearchResults(cleanedCountries.slice(0, 12));
+    } else {
+      const filtered = cleanedCountries.filter(({ country }) =>
+        country.toLowerCase().includes(value.toLowerCase())
+      );
+      setSearchResults(filtered);
+    }
+  };
+
+  const handleFocus = () => {
+    setSearchResults(cleanedCountries.slice(0, 12));
+    setIsDropdownOpen(true);
+  };
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const visible = showAll ? cleanedCountries : cleanedCountries.slice(0, 12);
 
   return (
-    <main>
-      <div className={styles.container}>
-        <h1>{t("simTitle")}</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>{t("simTitle")}</h1>
+
+      <div style={{ position: "relative" }} ref={wrapperRef}>
         <SearchInput
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Найти направление"
+          onChange={handleSearchChange}
+          placeholder={t("findCountry")}
+          onFocus={handleFocus}
         />
-        <div className={styles.countryContainer}>
-          <p className={styles.text}>
-            {!showAll ? t("popularCountries") : "Все страны"}
-          </p>
-          <div className={styles.grid}>
-            {visible.map((country) => (
-              <CountryCard key={country.id} country={country} />
-            ))}
-          </div>
-          <PrimaryButton onClick={toggleShowAll}>
-            {showAll ? t("hideCountries") : t("showAllCountries")}
-          </PrimaryButton>
-        </div>
+        {isDropdownOpen && <Dropdown results={searchResults} />}
       </div>
-    </main>
+
+      <div className={styles.countryContainer}>
+        <p className={styles.text}>
+          {!showAll ? t("popularCountries") : t("allCountries")}
+        </p>
+        <div className={styles.grid}>
+          {visible.map((details) => (
+            <CountryCard key={details.id} {...details} />
+          ))}
+        </div>
+        <PrimaryButton onClick={() => setShowAll(!showAll)}>
+          {showAll ? t("hideCountries") : t("showAllCountries")}
+        </PrimaryButton>
+      </div>
+    </div>
   );
-}
+};
+
+export default Home;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const countries = await fetchCountries();
@@ -63,5 +107,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       countries,
       ...(await serverSideTranslations(locale ?? "ru", ["common"])),
     },
+    revalidate: 300,
   };
 };

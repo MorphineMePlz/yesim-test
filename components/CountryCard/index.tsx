@@ -3,11 +3,16 @@ import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "./CountryCard.module.scss";
+import styles from "./styles.module.scss";
 
 import { Country } from "@/types/country";
 
-const CountryCard: FC<Country> = ({ country, iso, url, classic_info }) => {
+export const CountryCard: FC<Country> = ({
+  country,
+  iso,
+  url,
+  classic_info,
+}) => {
   const price = classic_info?.price_per_gb
     ? parseInt(classic_info.price_per_gb) / 20
     : null;
@@ -42,5 +47,3 @@ const CountryCard: FC<Country> = ({ country, iso, url, classic_info }) => {
     </Link>
   );
 };
-
-export default CountryCard;

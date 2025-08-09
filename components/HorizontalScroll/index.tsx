@@ -1,8 +1,8 @@
 import { FC, useRef } from "react";
 
-import styles from "./HorizontalScroll.module.scss";
+import styles from "./styles.module.scss";
 
-const HorizontalScroll: FC = () => {
+export const HorizontalScroll: FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -44,10 +44,9 @@ const HorizontalScroll: FC = () => {
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
         >
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item} className={styles.card}>
+          {Array.from({ length: 4 }).map((_, index) => (
+            <div key={index} className={styles.card}>
               <p className={styles.cardTitle}>Очень длинный заголовок</p>
-
               <div className={styles.image}></div>
             </div>
           ))}
@@ -56,5 +55,3 @@ const HorizontalScroll: FC = () => {
     </section>
   );
 };
-
-export default HorizontalScroll;

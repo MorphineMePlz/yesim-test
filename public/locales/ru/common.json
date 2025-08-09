@@ -8,11 +8,14 @@
   "viaEmail": "Вы успешно вошли через почту {{email}}",
   "showAllCountries": "Показать все страны",
   "popularCountries": "Популярные страны",
+  "allCountries": "Все страны",
   "faq": "Как это работает",
   "longTitle": "Очень длинный заголовок",
   "travelSim": "Туристические SIM-карты с интернетом",
   "countriesOperators": "Страны и операторы",
   "continue": "Продолжить",
   "simTitle": "eSIM карты с интернетом для путешествий и бизнеса",
-  "hideCountries": "Скрыть страны"
+  "hideCountries": "Скрыть страны",
+  "notFound": "Ничего не найдено :(",
+  "findCountry": "Найти направление"
 }

@@ -4,11 +4,11 @@ import Link from "next/link";
 
 import { useTranslation } from "next-i18next";
 
-import styles from "./Dropdown.module.scss";
+import styles from "./styles.module.scss";
 
 import { Country } from "@/types/country";
 
-const Dropdown: FC<{ results: Country[] }> = ({ results }) => {
+export const Dropdown: FC<{ results: Country[] }> = ({ results }) => {
   const { t } = useTranslation();
   if (!results.length) {
     return (
@@ -39,5 +39,3 @@ const Dropdown: FC<{ results: Country[] }> = ({ results }) => {
     </div>
   );
 };
-
-export default Dropdown;

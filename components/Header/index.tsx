@@ -3,9 +3,9 @@ import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "./Header.module.scss";
+import styles from "./styles.module.scss";
 
-const Header: FC = () => {
+export const Header: FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -22,5 +22,3 @@ const Header: FC = () => {
     </header>
   );
 };
-
-export default Header;

@@ -1,14 +1,13 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import { appWithTranslation } from "next-i18next";
-import Header from "@/components/Header";
+import Layout from "./layaout";
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Header />
+    <Layout>
       <Component {...pageProps} />
-    </>
+    </Layout>
   );
 }
 

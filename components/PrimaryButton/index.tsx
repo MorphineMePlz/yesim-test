@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import styles from "./PrimaryButton.module.scss";
+import styles from "./styles.module.scss";
 
 type Props = {
   children: React.ReactNode;
@@ -8,12 +8,14 @@ type Props = {
   type?: "button" | "submit" | "reset";
 };
 
-const PrimaryButton: FC<Props> = ({ children, onClick, type = "button" }) => {
+export const PrimaryButton: FC<Props> = ({
+  children,
+  onClick,
+  type = "button",
+}) => {
   return (
     <button className={styles.button} onClick={onClick} type={type}>
       {children}
     </button>
   );
 };
-
-export default PrimaryButton;
