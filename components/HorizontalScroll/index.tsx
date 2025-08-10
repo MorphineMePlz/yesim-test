@@ -46,7 +46,7 @@ export const HorizontalScroll: FC = () => {
         >
           {Array.from({ length: 4 }).map((_, index) => (
             <div key={index} className={styles.card}>
-              <p className={styles.cardTitle}>Очень длинный заголовок</p>
+              <p className={styles.card_title}>Очень длинный заголовок</p>
               <div className={styles.image}></div>
             </div>
           ))}

@@ -13,7 +13,7 @@ export const Dropdown: FC<{ results: Country[] }> = ({ results }) => {
   if (!results.length) {
     return (
       <div className={styles.dropdown}>
-        <p className={styles.notFound}>{t("notFound")}</p>
+        <p className={styles.not_found}>{t("notFound")}</p>
       </div>
     );
   }

@@ -19,7 +19,7 @@ export const CountryCard: FC<Country> = ({
 
   return (
     <Link href={url} className={styles.card}>
-      <div className={styles.flagWrapper}>
+      <div className={styles.flag_wrapper}>
         <Image
           src={`/flags/${iso.toLowerCase()}.svg`}
           alt={`${country} flag`}
